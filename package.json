@@ -1,0 +1,44 @@
+{
+  "name": "odin-blog",
+  "version": "1.0.0",
+  "description": "",
+  "engines": {
+    "node": "v12.21.0"
+  },
+  "main": "app.js",
+  "scripts": {
+    "start": "node ./bin/www",
+    "devstart": "nodemon ./bin/www",
+    "serverstart": "DEBUG=odin-blog:* npm run devstart"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jacob-Lindsey/odin-blog.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jacob-Lindsey/odin-blog/issues"
+  },
+  "dependencies": {
+    "async": "^3.2.2",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "bootstrap-icons": "^1.7.2",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.2",
+    "express-validator": "^6.13.0",
+    "jsonwebtoken": "^8.5.1",
+    "luxon": "^2.1.1",
+    "moment": "^2.29.1",
+    "mongoose": "^6.1.0",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.15",
+    "passport": "^0.5.0",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
+    "pug": "^3.0.2"
+  }
+}

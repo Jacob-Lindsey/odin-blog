@@ -1,0 +1,23 @@
+extends layout
+
+block content
+    section#login.row.d-flex.w-50.mx-auto.mt-5
+        div.form-wrap.text-light.bg-dark.mt-5.px-5.pb-5.pt-3.rounded-3
+            p.fs-1.text-center.mb-5 Log In
+            form#login-form(action="/login" method='POST' autocomplete='on')
+                div.form-group.mt-4
+                    label.sr-only(for='username') Username
+                    input#username.form-control.bg-dark.text-light.border-0.border-bottom.light-border(type='text' name='username' placeholder='Username')
+                div.form-group.mt-4
+                    label.sr-only(for='password') Password
+                    input#password.form-control.bg-dark.text-light.border-0.border-bottom.light-border(type='password' name='password' placeholder='Password')
+                div.form-check.mt-3
+                    input#showPassword.form-check-input(type='checkbox' value='')
+                    label.form-check-label.text-light(for="showPassword") Show password
+                input#btn-login.btn.btn-outline-info.btn-lg.btn-block.mt-4(type='submit' value='Log in')
+        if (users)
+            p.text-light #{users}
+        if (currentUser)
+            p.text-light #{currentUser}
+                            
+    script(src='javascripts/togglePasswordVisibility.js')

@@ -1,0 +1,41 @@
+extends layout
+
+block content
+
+    div.row.text-light.mt-5.pb-3.pt-4
+        div.col-sm-1
+        div.col-sm-10
+            if (post)
+                div.d-flex.p-2
+                    h1 Post: #{post.title}
+                    h4.ms-3.lh-lg - #{post.user.firstName} #{post.user.lastName}
+                p.px-2.pb-1.fw-bold #{moment(post.timestamp).format('MMMM Do YYYY, h:mm:ss a')}
+                hr
+                div.mb-5.p-2
+                    p #{post.text}
+                if (post.comments)
+                    if (currentUser)
+                        div.mt-3
+                            form.d-flex.flex-column(action="/blog/post/"+post._id+"/comment/new" method="POST")
+                                textarea#commentText.bg-dark.text-light.px-3.py-2(name="commentText" placeholder="Leave a comment" rows="8")
+                                div.d-flex
+                                    input#btn-login.btn.btn-outline-success.btn-sm.btn-block.my-3.me-4(type='submit' value='Submit')
+                                    input#btn-login.btn.btn-outline-warning.btn-sm.btn-block.my-3(type='reset' value='Reset')
+                    else
+                        div.bg-dark.p-4
+                            a.text-info.fw-bold(href="/login") Log in
+                            span &nbsp;or&nbsp;
+                            a.text-info.fw-bold(href="/register") create an account
+                            span &nbsp;to leave a comment.
+                    div.mt-3
+                        h3 Comments
+                        each comment in post.comments
+                            div.container.d-flex.flex-column.mt-4.px-3.py-4.border-light.border-3.border-start.comment-border
+                                p.mb-4 #{comment.text}
+                                div.d-flex
+                                    p.me-2 By: #{comment.user} -
+                                    p.fw-bold #{moment(comment.timestamp).format('MMMM Do YYYY, h:mm:ss a')}
+
+            else
+                h1 Post Title Here
+        div.col-sm-1

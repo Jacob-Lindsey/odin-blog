@@ -1,0 +1,107 @@
+extends layout
+
+block content
+    if (currentUser && currentUser.isAdmin)
+        section#admin.row.d-flex.flex-column
+            if (posts)
+
+                div.card.bg-dark.mt-5.px-4.pt-2.pb-3
+                    p.fs-1.mt-3.text-light Unpublished Posts
+
+                        each post in posts
+
+                            if (!post.isPublic)
+
+                                div.modal.fade(id='deleteConfirm'+post._id tabindex="-1" aria-labelledby="deleteConfirmLabel")
+                                    div.modal-dialog.modal-fullscreen-sm-down
+                                        div.modal-content.bg-dark.text-light
+                                            div.modal-header
+                                                h5#deleteConfirmLabel.modal-title Delete Confirmation
+                                                button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+                                            div.modal-body
+                                                p Are you sure you want to delete post - #{post._id}?
+                                            div.modal-footer
+                                                button.btn.btn-info(type="button" data-bs-dismiss="modal") Cancel
+                                                form(action='/admin/'+post._id+'/delete' method="POST")
+                                                    input(id='postId'+post._id type="hidden" name="postId" value=post._id)
+                                                    button.btn.btn-danger(type="submit") Confirm
+
+                                div.card.bg-form.mt-5.pb-1.border-warning.border-5.border-top-0.border-bottom-0.border-end-0.position-relative.hover-hide-wrapper
+                                    div.card-body
+                                        a(href="/blog/post/"+post._id)
+                                            span.d-flex.lh-lg.py-2
+                                                h2.card-title.text-light #{post.title}
+                                                h5.card-subtitle.text-light.lh-lg &nbsp;&nbsp;-&nbsp;&nbsp;#{post.user.firstName} #{post.user.lastName}
+                                        div.text-light
+
+                                            if (post.publishDate)
+
+                                                span.d-flex
+                                                    p.me-3 Date to be published: #{post.dateToPublish}
+                                                    svg.bi.bi-alarm(xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="#cccccc" viewBox="0 0 20 20")
+                                                        path(d="M8.5 5.5a.5.5 0 0 0-1 0v3.362l-1.429 2.38a.5.5 0 1 0 .858.515l1.5-2.5A.5.5 0 0 0 8.5 9V5.5z")
+                                                        path(fill-rule="evenodd" d="M6.5 0a.5.5 0 0 0 0 1H7v1.07a7.001 7.001 0 0 0-3.273 12.474l-.602.602a.5.5 0 0 0 .707.708l.746-.746A6.97 6.97 0 0 0 8 16a6.97 6.97 0 0 0 3.422-.892l.746.746a.5.5 0 0 0 .707-.708l-.601-.602A7.001 7.001 0 0 0 9 2.07V1h.5a.5.5 0 0 0 0-1h-3zm1.038 3.018a6.093 6.093 0 0 1 .924 0 6 6 0 1 1-.924 0zM0 3.5c0 .753.333 1.429.86 1.887A8.035 8.035 0 0 1 4.387 1.86 2.5 2.5 0 0 0 0 3.5zM13.5 1c-.753 0-1.429.333-1.887.86a8.035 8.035 0 0 1 3.527 3.527A2.5 2.5 0 0 0 13.5 1z")
+                                            else
+
+                                                div#postPublishDate.form-group.d-flex
+                                                    label.me-5.lh-lg(for='postPublishDate') Unscheduled // Set a publish date
+                                                    input#postPublishDate.form-control.bg-form.text-light.border-0.border-bottom.light-border.w-25(type='datetime-local' name='postPublishDate')
+
+                                    div.d-flex.position-absolute.end-0.top-50.translate-middle-y.pe-4.hover-hide
+                                        a(href=`/admin/${post._id}/edit`)
+                                            span.d-flex.flex-column.align-items-center.me-4
+                                                svg.bi.bi-pencil.ms-2(xmlns="http://www.w3.org/2000/svg" width="34" height="34" fill="#cccccc" viewBox="0 0 20 20")
+                                                    path(d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z")
+                                                p.text-light Edit   
+                                                 
+                                        span.d-flex.flex-column.align-items-center.ms-4(data-bs-toggle="modal" data-bs-target="#deleteConfirm"+post._id)
+                                            svg.bi.bi-trash(xmlns="http://www.w3.org/2000/svg" width="34" height="34" fill="#cccccc" viewBox="0 0 20 20")
+                                                path(d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z")
+                                                path(fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z")
+                                            p.text-light Delete
+
+                div.card.bg-dark.mt-5.px-4.pt-2.pb-3
+                    p.fs-1.mt-3.text-light Published Posts
+                    
+                        each post in posts
+
+                            if (post.isPublic)
+
+                                div.modal.fade(id='deleteConfirm'+post._id tabindex="-1" aria-labelledby="deleteConfirmLabel")
+                                    div.modal-dialog.modal-fullscreen-sm-down
+                                        div.modal-content.bg-dark.text-light
+                                            div.modal-header
+                                                h5#deleteConfirmLabel.modal-title Delete Confirmation
+                                                button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+                                            div.modal-body
+                                                p Are you sure you want to delete post - #{post._id}?
+                                            div.modal-footer
+                                                button.btn.btn-info(type="button" data-bs-dismiss="modal") Cancel
+                                                form(action='/admin/'+post._id+'/delete' method="POST")
+                                                    input(id='postId'+post._id type="hidden" name="postId" value=post._id)
+                                                    button.btn.btn-danger(type="submit") Confirm
+
+                                div.card.bg-form.mt-5.pb-1.border-success.border-5.border-top-0.border-bottom-0.border-end-0.position-relative.hover-hide-wrapper
+                                    div.card-body
+                                        a(href="/blog/post/"+post._id)
+                                            span.d-flex.lh-lg.py-2
+                                                h2.card-title.text-light #{post.title}
+                                                h5.card-subtitle.text-light.lh-lg &nbsp;&nbsp;-&nbsp;&nbsp;#{post.user.firstName} #{post.user.lastName}
+                                        div.text-light
+                                            p Date Published: #{post.date}
+
+                                    div.d-flex.position-absolute.end-0.top-50.translate-middle-y.pe-4.hover-hide
+                                        a(href=`/admin/${post._id}/edit`)
+                                            span.d-flex.flex-column.align-items-center.me-4
+                                                svg.bi.bi-pencil.ms-2(xmlns="http://www.w3.org/2000/svg" width="34" height="34" fill="#cccccc" viewBox="0 0 20 20")
+                                                    path(d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z")
+                                                p.text-light Edit
+
+                                        span.d-flex.flex-column.align-items-center.ms-4(data-bs-toggle="modal" data-bs-target="#deleteConfirm"+post._id)
+                                            svg.bi.bi-trash(xmlns="http://www.w3.org/2000/svg" width="34" height="34" fill="#cccccc" viewBox="0 0 20 20")
+                                                path(d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z")
+                                                path(fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z")
+                                            p.text-light Delete
+
+    else
+        p.fs-6.text-light You are not authorized to access this page. Please contact the Admin.

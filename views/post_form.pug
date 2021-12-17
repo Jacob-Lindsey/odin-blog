@@ -1,0 +1,72 @@
+extends layout
+
+block content
+
+    div.row.d-flex.pt-5
+            
+        form(action=(post) ? "/admin/"+post._id+"/edit" : "/blog/post/new" method="POST")
+            div.d-flex
+                div.form-group.my-4.px-4.w-50
+                    label.sr-only(for='postTitle') Title
+                    if (post)
+                        input#postTitle.form-control.bg-form.text-light.border-0.border-bottom.light-border(type='text' name='postTitle' placeholder='Title' value=post.title)
+                    else
+                        input#postTitle.form-control.bg-form.text-light.border-0.border-bottom.light-border(type='text' name='postTitle' placeholder='Title')
+                div.form-check.form-switch.my-4
+                    label.form-check-label.text-light.mt-1(for='postPublish') Publish Later?
+                    input#postPublish.form-check-input.text-light.mt-2(type='checkbox' name='postPublish')
+                div#postPublishDateContainer.form-group.my-4.px-4.w-25.toggleVisibility
+                    label.sr-only(for='postPublishDate') Post Publish Date
+                    input#postPublishDate.form-control.bg-form.text-light.border-0.border-bottom.light-border(type='datetime-local' name='postPublishDate' placeholder='Publish Date')
+            textarea#postTextArea(name="postText")
+            input#btn-login.btn.btn-outline-success.btn-lg.btn-block.mt-4.me-4(type='submit' value='Publish')
+            input#btn-login.btn.btn-outline-warning.btn-lg.btn-block.mt-4(type='reset' value='Reset')
+
+    script.
+        const postPublish = document.querySelector('#postPublish');
+        const postPublishDateContainer = document.querySelector('#postPublishDateContainer');
+
+        postPublish.addEventListener('change', function (e) {
+            if (!e.currentTarget.checked) {
+                postPublishDateContainer.classList.add('toggleVisibility')
+            } else {
+                postPublishDateContainer.classList.remove('toggleVisibility')
+            }
+        })
+    if (post)
+        script.
+            (tinymce.init({
+                selector: '#postTextArea',
+                max_height: 700,
+                max_width: 1200,
+                min_height: 500,
+                min_width: 475,
+                skin: 'oxide-dark',
+                content_css: 'dark',
+                plugins: 'a11ychecker advcode casechange export formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinymcespellchecker',
+                toolbar: 'a11ycheck casechange checklist code export formatpainter pageembed permanentpen table',
+                toolbar_mode: 'floating',
+                setup: function(editor) {
+                    editor.on('init', function() {
+                        var postData = !{JSON.stringify(post)};
+                        if (postData) {
+                            editor.setContent(postData.text)    
+                        }
+                        
+                    });
+                }
+            }))
+    else
+        script.
+            (tinymce.init({
+                selector: '#postTextArea',
+                max_height: 700,
+                max_width: 1200,
+                min_height: 500,
+                min_width: 475,
+                skin: 'oxide-dark',
+                content_css: 'dark',
+                plugins: 'a11ychecker advcode casechange export formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinymcespellchecker',
+                toolbar: 'a11ycheck casechange checklist code export formatpainter pageembed permanentpen table',
+                toolbar_mode: 'floating'
+            }))
