@@ -2,20 +2,20 @@ extends layout
 
 block content
 
-    div.row.d-flex.pt-5
+    div.row.d-flex.pt-lg-5.pt-2
             
         form(action=(post) ? "/admin/"+post._id+"/edit" : "/blog/post/new" method="POST")
-            div.d-flex
-                div.form-group.my-4.px-4.w-50
+            div.d-flex.post-controls-wrapper.w-100.mb-lg-0.mb-3.px-lg-0.px-2
+                div.form-group.post-title.my-lg-4.my-2.px-lg-4.px-0
                     label.sr-only(for='postTitle') Title
                     if (post)
                         input#postTitle.form-control.bg-form.text-light.border-0.border-bottom.light-border(type='text' name='postTitle' placeholder='Title' value=post.title)
                     else
                         input#postTitle.form-control.bg-form.text-light.border-0.border-bottom.light-border(type='text' name='postTitle' placeholder='Title')
-                div.form-check.form-switch.my-4
+                div.form-check.post-publish.form-switch.my-lg-4.my-2
                     label.form-check-label.text-light.mt-1(for='postPublish') Publish Later?
                     input#postPublish.form-check-input.text-light.mt-2(type='checkbox' name='postPublish')
-                div#postPublishDateContainer.form-group.my-4.px-4.w-25.toggleVisibility
+                div#postPublishDateContainer.form-group.post-datepicker.my-4.px-lg-4.px-1.toggleVisibility
                     label.sr-only(for='postPublishDate') Post Publish Date
                     input#postPublishDate.form-control.bg-form.text-light.border-0.border-bottom.light-border(type='datetime-local' name='postPublishDate' placeholder='Publish Date')
             textarea#postTextArea(name="postText")

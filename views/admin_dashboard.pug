@@ -5,8 +5,8 @@ block content
         section#admin.row.d-flex.flex-column
             if (posts)
 
-                div.card.bg-dark.mt-5.px-4.pt-2.pb-3
-                    p.fs-1.mt-3.text-light Unpublished Posts
+                div.card.bg-dark.mt-5.px-lg-4.px-2.pt-lg-2.pb-1.pt-1
+                    p.fs-1.mt-lg-1.mt-0.ms-lg-0.ms-2.text-light Unpublished Posts
 
                         each post in posts
 
@@ -26,10 +26,10 @@ block content
                                                     input(id='postId'+post._id type="hidden" name="postId" value=post._id)
                                                     button.btn.btn-danger(type="submit") Confirm
 
-                                div.card.bg-form.mt-5.pb-1.border-warning.border-5.border-top-0.border-bottom-0.border-end-0.position-relative.hover-hide-wrapper
-                                    div.card-body
+                                div.card.bg-form.mt-3.pb-1.border-warning.border-5.border-top-0.border-bottom-0.border-end-0.position-relative.hover-hide-wrapper
+                                    div.card-body.p-lg-3.p-2
                                         a(href="/blog/post/"+post._id)
-                                            span.d-flex.lh-lg.py-2
+                                            span.d-flex.lh-lg.py-lg-2.py-0
                                                 h2.card-title.text-light #{post.title}
                                                 h5.card-subtitle.text-light.lh-lg &nbsp;&nbsp;-&nbsp;&nbsp;#{post.user.firstName} #{post.user.lastName}
                                         div.text-light
@@ -60,8 +60,8 @@ block content
                                                 path(fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z")
                                             p.text-light Delete
 
-                div.card.bg-dark.mt-5.px-4.pt-2.pb-3
-                    p.fs-1.mt-3.text-light Published Posts
+                div.card.bg-dark.mt-5.px-lg-4.px-2.pt-lg-2.pb-1.pt-1
+                    p.fs-1.mt-lg-1.mt-0.ms-lg-0.ms-2.text-light Published Posts
                     
                         each post in posts
 
@@ -81,14 +81,14 @@ block content
                                                     input(id='postId'+post._id type="hidden" name="postId" value=post._id)
                                                     button.btn.btn-danger(type="submit") Confirm
 
-                                div.card.bg-form.mt-5.pb-1.border-success.border-5.border-top-0.border-bottom-0.border-end-0.position-relative.hover-hide-wrapper
-                                    div.card-body
+                                div.card.bg-form.mt-3.pb-1.border-success.border-5.border-top-0.border-bottom-0.border-end-0.position-relative.hover-hide-wrapper
+                                    div.card-body.p-lg-3.p-2
                                         a(href="/blog/post/"+post._id)
-                                            span.d-flex.lh-lg.py-2
+                                            span.d-flex.lh-lg.py-lg-2.py-0
                                                 h2.card-title.text-light #{post.title}
                                                 h5.card-subtitle.text-light.lh-lg &nbsp;&nbsp;-&nbsp;&nbsp;#{post.user.firstName} #{post.user.lastName}
                                         div.text-light
-                                            p Date Published: #{post.date}
+                                            p.fs-6 Date Published: #{post.date}
 
                                     div.d-flex.position-absolute.end-0.top-50.translate-middle-y.pe-4.hover-hide
                                         a(href=`/admin/${post._id}/edit`)

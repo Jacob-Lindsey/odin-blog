@@ -7,11 +7,11 @@ block content
             if (posts)
                 each post in posts
                     if (post.isPublic)
-                        div.card.bg-dark.mt-5.pb-1.outline-offset-4
+                        div.card.bg-dark.mt-lg-5.mt-2.pb-1.outline-offset-4
                             a(href="/blog/post/"+post._id)
-                                div.card-body
-                                    span.d-flex.lh-lg.py-2
-                                        h3.card-title.text-light #{post.title} - 
+                                div.card-body.px-lg-4.px-3.pt-4
+                                    span.d-flex.lh-lg.py-2.post-header
+                                        h3.card-title.text-light #{post.title} 
                                         h5.card-subtitle.text-light.lh-lg &nbsp;&nbsp;#{post.user.firstName} #{post.user.lastName}
                                     article.text-light.my-3 #{post.text}
                             div.card-footer.d-flex.justify-content-between.border-top.border-black.text-light

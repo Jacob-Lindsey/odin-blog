@@ -11,28 +11,32 @@ html
     link(rel='stylesheet', href='/stylesheets/style.css')
     link(rel='stylesheet', href='/stylesheets/reset.css')
   body
+
     div.container-fluid
-      div.row.d-flex.flex-column.align-items-center
-        div.col-md-12
-          ul.nav.d-flex.justify-content-evenly
-            li.nav-item.mt-2.link-hover
-              a.nav-link.link-light(aria-current="page" href="/blog") Blog
-            if (currentUser)
-              if (currentUser.isAdmin)
-                li.nav-item.mt-2.link-hover
-                  a.nav-link.link-light(aria-current="page" href="/blog/post/new") + New Blog Post 
-                li.nav-item.mt-2.link-hover
-                  a.nav-link.link-light(aria-current="page" href="/admin") Admin Page
-              else
-                li.nav-item.mt-2
-                  div.nav-link.text-light.fw-bold Logged in as: #{currentUser.username}
-              li.nav-item.mt-2.link-hover
-                a.nav-link.link-light(aria-current="page" href="/logout") Logout
-            else
-              li.nav-item.mt-2.link-hover
-                a.nav-link.link-light(aria-current="page" href="/login") Login
-              li.nav-item.mt-2.link-hover
-                a.nav-link.link-light(aria-current="page" href="/register") Register
-        div.col-md-offset-3.col-md-9.col-sm-12
+      nav.navbar.navbar-expand-lg.position-sticky
+        div.container-fluid
+          button.navbar-toggler.px-1.py-1(type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation")
+            span.navbar-toggler-icon
+          div.collapse.navbar-collapse(id="navbarContent")
+            ul.navbar-nav.justify-content-evenly.w-100
+                li.nav-item.mt-lg-3.mt-1.link-hover
+                  a.nav-link.link-light.fs-6(aria-current="page" href="/blog") Blog
+                if (currentUser)
+                  if (currentUser.isAdmin)
+                    li.nav-item.mt-lg-3.mt-1.link-hover
+                      a.nav-link.link-light(aria-current="page" href="/blog/post/new") + New Blog Post 
+                    li.nav-item.mt-lg-3.mt-1.link-hover
+                      a.nav-link.link-light(aria-current="page" href="/admin") Admin Page
+                  else
+                    li.nav-item.mt-lg-3.mt-1
+                      div.nav-link.text-light.fw-bold Logged in as: #{currentUser.username}
+                  li.nav-item.mt-lg-3.mt-1.link-hover
+                    a.nav-link.link-light(aria-current="page" href="/logout") Logout
+                else
+                  li.nav-item.mt-lg-3.mt-1.link-hover
+                    a.nav-link.link-light(aria-current="page" href="/login") Login
+                  li.nav-item.mt-lg-3.mt-1.link-hover
+                    a.nav-link.link-light(aria-current="page" href="/register") Register
+      div.col-md-offset-3.col-md-9.col-sm-12.mx-lg-auto
 
           block content

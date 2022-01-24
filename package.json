@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "engines": {
-    "node": "v12.21.0"
+    "node": "v16.13.1"
   },
   "main": "app.js",
   "scripts": {
@@ -21,22 +21,22 @@
     "url": "https://github.com/Jacob-Lindsey/odin-blog/issues"
   },
   "dependencies": {
-    "async": "^3.2.2",
+    "async": "^3.2.3",
     "bcryptjs": "^2.4.3",
-    "body-parser": "^1.19.0",
+    "body-parser": "^1.19.1",
     "bootstrap-icons": "^1.7.2",
     "cookie-parser": "^1.4.6",
-    "dotenv": "^10.0.0",
-    "express": "^4.17.1",
+    "dotenv": "^14.2.0",
+    "express": "^4.17.2",
     "express-session": "^1.17.2",
-    "express-validator": "^6.13.0",
+    "express-validator": "^6.14.0",
     "jsonwebtoken": "^8.5.1",
-    "luxon": "^2.1.1",
+    "luxon": "^2.3.0",
     "moment": "^2.29.1",
-    "mongoose": "^6.1.0",
+    "mongoose": "^6.1.8",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.15",
-    "passport": "^0.5.0",
+    "passport": "^0.5.2",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "pug": "^3.0.2"
